@@ -5,6 +5,7 @@ from pyspark.sql import functions
 from pyspark.sql.types import *
 from pyspark.sql.functions import col, to_date
 
+
 spark = SparkSession.builder.appName('weathercheck').getOrCreate()
 #Load weather data csv files
 df = spark.read\
@@ -16,7 +17,8 @@ df = spark.read\
 #Set Row Size to 2MB
 PARQUET_BLOCK_SIZE = 2 * 1024 * 1024
 #Save as parquet file
-df.repartition(2).write.option("parquet.block.size",PARQUET_BLOCK_SIZE).mode("overwrite").parquet("file:///D:/parquet_output/")
+df.repartition(3).write.option("parquet.block.size",PARQUET_BLOCK_SIZE).mode("overwrite").parquet("file:///D:/parquet_output/")
+
 
 #Load parquet files
 parq_df = spark.read\
